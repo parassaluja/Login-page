@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="login.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js'></script>
+		
+	<div class="login-page">
+	  <div class="form">
+		<form class="register-form">
+		  <input type="text" placeholder="name" name="name"/>
+		  <input type="password" placeholder="password" name="password"/>
+		  <input type="text" placeholder="email address"/>
+		  <button class="submit-form">create</button>
+		  <p class="message">Already registered? <a href="#">Sign In</a></p>
+		</form>
+		<form class="login-form">
+		  <input type="text" placeholder="username"/>
+		  <input type="password" placeholder="password"/>
+		  <button>login</button>
+		  <p class="message">Not registered? <a href="#">Create an account</a></p>
+		</form>
+	  </div>
+	</div>
+	<script>
+		$('.message a').click(function(){
+		    $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+		});
+		var el = document.querySelector(".submit-form");
+		el.addEventListener("click",function(e) {
+		    e.preventDefault();
+			var p = document.querySelector('.register-form');
+			var data = {
+				name: p.elements.name.value,
+				password: p.elements.password.value
+			};
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', '/signup')
+			xhr.addEventListener('load', function() {
+			    document.write(xhr.responseText);
+			});
+			xhr.addEventListener('error', function() {
+			    document.write('error');
+			});
+			xhr.send(JSON.stringify(data));
+		})
+	</script>	
+</body>	
